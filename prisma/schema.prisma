@@ -11,16 +11,19 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
-model Student {
-  email String @id
-  name  String
-  city  String
-}
+model User {
 
-model Course{
-  id String @id
-  name String
+  id String @id @default(uuid())
+  email String @unique
+  phone String? @unique
+  firstName String
+  lastName String
+  password String
+  role String @default("CUSTOMER")
+  status String @default("ACTIVE, BANNED, SUSPENDED")
+  createdAT DateTime @default(now())
+  LastLogin DateTime?
+  privileges String[] @default([])
 }
